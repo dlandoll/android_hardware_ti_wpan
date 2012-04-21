@@ -745,13 +745,13 @@ static int nativeJFmRx_SetChannelSpacing(JNIEnv *env, jobject obj,jlong jContext
 {
 
     int status = 0;
-    ALOGD("nativeJFmRx_SetChannelSpacing(): Entered");
+    LOGD("nativeJFmRx_SetChannelSpacing(): Entered");
 
     chanl_spacing = jFmChannelSpacing * 50000;
 
     nativeJFmRx_Callback(jContext,status, FM_RX_CMD_SET_CHANNEL_SPACING,status);
 
-    ALOGD("nativeJFmRx_SetChannelSpacing(): Exit");
+    LOGD("nativeJFmRx_SetChannelSpacing(): Exit");
     return FM_PENDING;
 
 }
@@ -760,9 +760,9 @@ static int nativeJFmRx_GetChannelSpacing(JNIEnv *env, jobject obj,jlong jContext
 {
 
     int status =0;
-    ALOGD("nativeJFmRx_GetChannelSpacing(): Entered");
+    LOGD("nativeJFmRx_GetChannelSpacing(): Entered");
 
-      ALOGD("nativeJFmRx_GetChannelSpacing(): Exit");
+      LOGD("nativeJFmRx_GetChannelSpacing(): Exit");
     nativeJFmRx_Callback(jContext,status, FM_RX_CMD_GET_CHANNEL_SPACING,status);
      return FM_PENDING;
 }
@@ -1163,30 +1163,30 @@ static int nativeJFmRx_CompleteScan(JNIEnv *env, jobject obj, jlong jContextValu
 {
 
 int status =0;
-    ALOGD("nativeJFmRx_CompleteScan(): Entered");
+    LOGD("nativeJFmRx_CompleteScan(): Entered");
 
     //nativeJFmRx_Callback(jContext,status, FM_RX_CMD_COMPLETE_SCAN,status);
-    ALOGD("nativeJFmRx_CompleteScan(): Exit");
+    LOGD("nativeJFmRx_CompleteScan(): Exit");
      return FM_PENDING;
 }
 
 static int nativeJFmRx_GetCompleteScanProgress(JNIEnv *env, jobject obj, jlong jContextValue)
 {
 int status =0;
-    ALOGD("nativeJFmRx_GetCompleteScanProgress(): Entered");
+    LOGD("nativeJFmRx_GetCompleteScanProgress(): Entered");
   //nativeJFmRx_Callback(jContext,status, FM_RX_CMD_COMPLETE_SCAN_PROGRESS,status);
 
-    ALOGD("nativeJFmRx_GetCompleteScanProgress(): Exit");
+    LOGD("nativeJFmRx_GetCompleteScanProgress(): Exit");
      return FM_PENDING;
 }
 
 static int nativeJFmRx_StopCompleteScan(JNIEnv *env, jobject obj, jlong jContextValue)
 {
 
-    ALOGD("nativeJFmRx_StopCompleteScan(): Entered");
+    LOGD("nativeJFmRx_StopCompleteScan(): Entered");
 
  //nativeJFmRx_Callback(jContext,status, FM_RX_CMD_STOP_COMPLETE_SCAN,status);
-    ALOGD("nativeJFmRx_StopCompleteScan(): Exit");
+    LOGD("nativeJFmRx_StopCompleteScan(): Exit");
      return FM_PENDING;
 }
 
@@ -1194,9 +1194,9 @@ static int nativeJFmRx_IsValidChannel(JNIEnv *env, jobject obj, jlong jContextVa
 {
 
 
-    ALOGD("nativeJFmRx_IsValidChannel(): Entered");
+    LOGD("nativeJFmRx_IsValidChannel(): Entered");
 //nativeJFmRx_Callback(jContext,status, FM_RX_CMD_IS_CHANNEL_VALID ,status);
-    ALOGD("nativeJFmRx_IsValidChannel(): Exit");
+    LOGD("nativeJFmRx_IsValidChannel(): Exit");
      return FM_PENDING;
 }
 
@@ -1204,9 +1204,9 @@ static int nativeJFmRx_IsValidChannel(JNIEnv *env, jobject obj, jlong jContextVa
 static int nativeJFmRx_GetFwVersion(JNIEnv *env, jobject obj, jlong jContextValue)
 {
 
-    ALOGD("nativeJFmRx_GetFwVersion(): Entered");
+    LOGD("nativeJFmRx_GetFwVersion(): Entered");
 //nativeJFmRx_Callback(jContext,status, FM_RX_CMD_GET_FW_VERSION,status);
-    ALOGD("nativeJFmRx_GetFwVersion(): Exit");
+    LOGD("nativeJFmRx_GetFwVersion(): Exit");
      return FM_PENDING;
 }
 
@@ -1224,9 +1224,9 @@ void nativeJFmRx_RadioText_Callback(int status, bool resetDisplay,
             unsigned char * msg, int len, int startIndex,
             int repertoire)
 {
-    ALOGE("nativeJFmRx_RadioText_Callback: Entering");
+    LOGE("nativeJFmRx_RadioText_Callback: Entering");
 
-ALOGE("nativeJFmRx_RadioText_Callback: msg %s",msg);
+LOGE("nativeJFmRx_RadioText_Callback: msg %s",msg);
     JNIEnv* env = NULL;
         bool attachedThread = false;
     int jRet ;
@@ -1238,12 +1238,12 @@ ALOGE("nativeJFmRx_RadioText_Callback: msg %s",msg);
 
        if(jRet < 0)
        {
-           ALOGE("failed to get JNI env,assuming native thread");
+           LOGE("failed to get JNI env,assuming native thread");
            jRet = g_jVM->AttachCurrentThread((&env), NULL);
 
            if(jRet != JNI_OK)
            {
-               ALOGE("failed to atatch to current thread %d",jRet);
+               LOGE("failed to atatch to current thread %d",jRet);
                return ;
            }
 
@@ -1254,16 +1254,16 @@ ALOGE("nativeJFmRx_RadioText_Callback: msg %s",msg);
 
 
        if(env == NULL) {
-               ALOGI("%s: Entered, env is null", __func__);
+               LOGI("%s: Entered, env is null", __func__);
            } else {
-               ALOGD("%s: jEnv %p", __func__, (void *)env);
+               LOGD("%s: jEnv %p", __func__, (void *)env);
            }
 
 
 V4L2_JBTL_LOGD("nativeJFmRx_Callback():EVENT --------------->FM_RX_EVENT_RADIO_TEXT");
         jRadioTxtMsg = env->NewByteArray(len);
         if (jRadioTxtMsg == NULL) {
-            ALOGE("%s: Failed converting elements", __func__);
+            LOGE("%s: Failed converting elements", __func__);
             goto CLEANUP;
         }
 
@@ -1273,7 +1273,7 @@ V4L2_JBTL_LOGD("nativeJFmRx_Callback():EVENT --------------->FM_RX_EVENT_RADIO_T
                 (jbyte*)msg);
 
         if (env->ExceptionOccurred()) {
-            ALOGE("%s: Calling nativeCb_fmRxRadioText failed",
+            LOGE("%s: Calling nativeCb_fmRxRadioText failed",
                  __func__);
             goto CLEANUP;
         }
@@ -1288,7 +1288,7 @@ V4L2_JBTL_LOGD("nativeJFmRx_Callback():EVENT --------------->FM_RX_EVENT_RADIO_T
                 (jint)repertoire);
 
     if (env->ExceptionOccurred()) {
-            ALOGE("nativeJFmRx_RadioText_Callback:  ExceptionOccurred");
+            LOGE("nativeJFmRx_RadioText_Callback:  ExceptionOccurred");
             goto CLEANUP;
         }
 
@@ -1301,7 +1301,7 @@ if(jRadioTxtMsg!= NULL)
 return ;
 
     CLEANUP:
-ALOGE("nativeJFmRx_RadioText_Callback: Exiting due to failure");
+LOGE("nativeJFmRx_RadioText_Callback: Exiting due to failure");
 
 if(jRadioTxtMsg!= NULL)
         env->DeleteLocalRef(jRadioTxtMsg);
@@ -1324,7 +1324,7 @@ return ;
                int repertoire)
 
    {
-       ALOGE("nativeJFmRx_PS_Callback: Exiting due to failure");
+       LOGE("nativeJFmRx_PS_Callback: Exiting due to failure");
        JNIEnv* env = NULL;
            bool attachedThread = false;
        int jRet ;
@@ -1337,12 +1337,12 @@ return ;
 
        if(jRet < 0)
        {
-           ALOGE("failed to get JNI env,assuming native thread");
+           LOGE("failed to get JNI env,assuming native thread");
            jRet = g_jVM->AttachCurrentThread((&env), NULL);
 
            if(jRet != JNI_OK)
            {
-               ALOGE("failed to atatch to current thread %d",jRet);
+               LOGE("failed to atatch to current thread %d",jRet);
                return ;
            }
 
@@ -1353,9 +1353,9 @@ return ;
 
 
        if(env == NULL) {
-               ALOGI("%s: Entered, env is null", __func__);
+               LOGI("%s: Entered, env is null", __func__);
            } else {
-               ALOGD("%s: jEnv %p", __func__, (void *)env);
+               LOGD("%s: jEnv %p", __func__, (void *)env);
            }
 
               V4L2_JBTL_LOGD("nativeJFmRx_PS_Callback():EVENT --------------->FM_RX_EVENT_PS_CHANGED len %d",len);
@@ -1384,7 +1384,7 @@ return ;
 
 
        if (env->ExceptionOccurred()) {
-               ALOGE("nativeJFmRx_PS_Callback:    ExceptionOccurred");
+               LOGE("nativeJFmRx_PS_Callback:    ExceptionOccurred");
                goto CLEANUP;
            }
 
@@ -1397,7 +1397,7 @@ return ;
    return ;
 
        CLEANUP:
-   ALOGE("nativeJFmRx_PS_Callback: Exiting due to failure");
+   LOGE("nativeJFmRx_PS_Callback: Exiting due to failure");
 
    if(jNameString!= NULL)
            env->DeleteLocalRef(jNameString);
